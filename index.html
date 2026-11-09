@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nutriplan</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="header d-flex flex-column flex-lg-row justify-content-between border-bottom">
+                <header class=" py-2 ps-2 mx-2 mt-4">
+                    <div class="title-h d-inline-flex align-items-center gap-2 px-3 py-2 rounded-2">
+                        <h3 class="fw-bold">NutriPlan</h3>
+                        <i class="fa-solid fa-leaf fs-3 mt-1"></i> 
+                    </div>  
+                </header>
+                <nav class="main-nav ">
+                   <ul class="d-flex flex-wrap justify-content-center p-0">
+                       <li id="meals" class=" mt-5 me-5">
+                           <a href="#recipes">
+                                <div class="nav-tab tab-meals fw-bolder border border-2 rounded-2 p-3 ">
+                                    <i class="fa-solid fa-utensils "></i>
+                                    <span>Meals & Recipes</span>
+                               </div>
+                            </a>
+                       </li>
+                       <li id="Scanner" class="mt-4 mx-3">
+                           <a href="#scanner">
+                                <div class="nav-tab tab-Scanner fw-bolder border border-2 rounded-2 p-3 ">
+                                    <i class="fa-solid fa-barcode"></i>
+                                    <span >Product Scanner</span>
+                                </div>    
+                           </a>
+                       </li>
+                       <li id="log" class="mt-5 ms-5">
+                           <a href="#food-log">
+                              <div class="nav-tab tab-log fw-bolder border border-2 rounded-2 p-3">
+                                 <i class="fa-solid fa-list-ul"></i>
+                                 <span>Food Log</span>
+                              </div>
+                           </a>    
+                       </li> 
+                           
+                   </ul>
+                </nav>      
+            </div>
+        </div>
+        <section class="meals" id="mealsList">
+            <div class="container">
+                <div class="search">
+                    <div class="position-relative">
+                        <i class="fa-solid fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                        <input type="text" id="meal-search-input"
+                            class="form-control form-control-lg ps-5 meal-search"
+                            placeholder="Search recipes by name, ingredient, or cuisine...">
+                    </div>
+                </div>
+                <div id="areas" class="area-row mt-3"></div>
+                <div class="mealsSection p-3">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div id="categories" class="row g-2"></div>
+                            
+                        </div>
+                        <div class="col-lg-8">
+                            <div id="recipes" class="row g-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="mealDetails" class="d-none">
+            <div class="container py-4">
+                <button id="backBtn" class="btn btn-link text-decoration-none text-secondary mb-3">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Recipes
+                </button>
+                <div id="detailsContent"></div>
+            </div>
+        </section>
+
+        <!-- productsSection -->
+        <section id="productsSection" class="py-4 bg-light d-none">
+          <div class="container">
+             <div class="scanner-hero rounded-4 p-4 mb-4 text-white">
+                    <h2 class="fw-bold fs-3 mb-2">
+                        <i class="fa-solid fa-barcode me-2"></i>Product Search &amp; Barcode Scanner
+                    </h2>
+                    <p class="mb-3 opacity-75">Search for packaged food products to view nutrition information</p>
+
+                    <div class="d-flex gap-3">
+                        <div class="position-relative flex-grow-1">
+                            <input type="text" id="product-search-input"
+                                    class="form-control form-control-lg scanner-input border-0 pe-5"
+                                    placeholder="Search by product name (e.g., Cheerios, Nutella, Coca-Cola...)">
+                            <i class="fa-solid fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-secondary"></i>
+                        </div>
+                        <button id="search-product-btn" class="btn btn-light text-success fw-semibold px-4">Search</button>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 my-3">
+                        <div class="flex-grow-1 border-top border-light border-opacity-50"></div>
+                        <span class="small opacity-75">or</span>
+                        <div class="flex-grow-1 border-top border-light border-opacity-50"></div>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <div class="position-relative flex-grow-1">
+                            <input type="text" id="barcode-input"
+                                    class="form-control form-control-lg scanner-input border-0 pe-5"
+                                    placeholder="Enter barcode number (e.g., 7613034626844)">
+                            <i class="fa-solid fa-barcode position-absolute top-50 end-0 translate-middle-y me-3 text-secondary"></i>
+                        </div>
+                        <button id="lookup-barcode-btn" class="btn btn-amber fw-semibold px-4">
+                            <i class="fa-solid fa-search me-2"></i>Lookup
+                        </button>
+                   </div>
+                </div>
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <span class="small fw-medium text-secondary">Filter by Nutri-Score:</span>
+                    <div class="d-flex gap-2">
+                        <button class="nutri-score-filter btn btn-sm fw-bold grade-all" data-grade="">All</button>
+                        <button class="nutri-score-filter btn btn-sm fw-bold grade-a" data-grade="a">A</button>
+                        <button class="nutri-score-filter btn btn-sm fw-bold grade-b" data-grade="b">B</button>
+                        <button class="nutri-score-filter btn btn-sm fw-bold grade-c" data-grade="c">C</button>
+                        <button class="nutri-score-filter btn btn-sm fw-bold grade-d" data-grade="d">D</button>
+                        <button class="nutri-score-filter btn btn-sm fw-bold grade-e" data-grade="e">E</button>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h3 class="fs-5 fw-semibold mb-3">Browse by Category</h3>
+                    <div id="product-categories" class="scroll-row">
+                        <button class="product-category-btn btn btn-sm fw-medium text-nowrap cat-emerald"><i class="fa-solid fa-cookie me-1"></i>Snacks</button>
+                        <button class="product-category-btn btn btn-sm fw-medium text-nowrap cat-blue"><i class="fa-solid fa-glass-water me-1"></i>Beverages</button>
+                        <button class="product-category-btn btn btn-sm fw-medium text-nowrap cat-amber"><i class="fa-solid fa-bread-slice me-1"></i>Breakfast</button>
+                        <button class="product-category-btn btn btn-sm fw-medium text-nowrap cat-purple"><i class="fa-solid fa-ice-cream me-1"></i>Desserts</button>
+                        <button class="product-category-btn btn btn-sm fw-medium text-nowrap cat-rose"><i class="fa-solid fa-cheese me-1"></i>Dairy</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="fs-4 fw-bold mb-0">Search Results</h3>
+                    <p id="products-count" class="small text-secondary mb-0">Search for products to see results</p>
+                </div>
+                <div id="products-grid" class="row g-4 ">
+                </div>  
+                <div id="productModal" class="log-overlay d-none">
+                    <div class="log-box bg-white rounded-4 p-4" id="productModalContent"></div>
+                </div>   
+          </div>
+        </section>  
+        <!--   FOOD LOG SECTION   -->
+        <section id="foodlog-section" class="py-4 bg-light min-vh-100 d-none">
+            <div class="container">   
+
+                <div class="foodlog-header rounded-4 p-4 mb-4 text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>   
+                            <h2 class="h3 fw-bold mb-2">
+                            <i class="fa-solid fa-clipboard-list me-2"></i>Daily Food Log
+                            </h2>
+                            <p class="mb-0 opacity-75">Track and monitor your daily nutrition intake</p>
+                        </div>
+                        <div class="text-end">
+                            <p class="small mb-0 opacity-75">Today</p>
+                            <p class="h5 fw-bold mb-0" id="foodlog-date"></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="foodlog-today-section" class="bg-white rounded-4 p-4 mb-4 border border-2">
+                    <h3 class="h5 fw-bold mb-4">
+                        <i class="fa-solid fa-fire text-warning me-2"></i>Today's Nutrition
+                    </h3>
+                    <div class="row g-3 mb-4">
+                        <div class="col-6 col-lg-3">
+                            <div class="stat-card rounded-4 p-3 text-center">
+                                <p class="fw-semibold text-secondary mb-3">Calories</p>
+                                <div id="calories-ring" class="ring mx-auto mb-3" style="--c:#10b981">
+                                    <span id="calories-percent" class="ring-text text-success">0%</span>
+                                </div>
+                                <p id="calories-value" class="fw-bold text-success mb-0">0 kcal</p>
+                                <p class="small text-secondary mb-0">/ 2000 kcal</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="stat-card rounded-4 p-3 text-center">
+                                <p class="fw-semibold text-secondary mb-3">Protein</p>
+                                <div id="protein-ring" class="ring mx-auto mb-3" style="--c:#3b82f6">
+                                    <span id="protein-percent" class="ring-text text-primary">0%</span>
+                                </div>
+                                <p id="protein-value" class="fw-bold text-primary mb-0">0 g</p>
+                                <p class="small text-secondary mb-0">/ 50 g</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-lg-3">
+                            <div class="stat-card rounded-4 p-3 text-center">
+                                <p class="fw-semibold text-secondary mb-3">Carbs</p>
+                                <div id="carbs-ring" class="ring mx-auto mb-3" style="--c:#f59e0b">
+                                    <span id="carbs-percent" class="ring-text text-warning">0%</span>
+                                </div>
+                                <p id="carbs-value" class="fw-bold text-warning mb-0">0 g</p>
+                                <p class="small text-secondary mb-0">/ 250 g</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="stat-card rounded-4 p-3 text-center">
+                                <p class="fw-semibold text-secondary mb-3">Fat</p>
+                                <div id="fat-ring" class="ring mx-auto mb-3" style="--c:#a855f7">
+                                    <span id="fat-percent" class="ring-text text-fat">0%</span>
+                                </div>
+                                <p id="fat-value" class="fw-bold text-fat mb-0">0 g</p>
+                                <p class="small text-secondary mb-0">/ 65 g</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top pt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="small fw-semibold text-secondary mb-0">
+                                Logged Items (<span id="logged-count">0</span>)
+                            </h4>
+                            <button id="clear-foodlog" class="btn btn-link btn-sm text-danger text-decoration-none d-none">
+                                <i class="fa-solid fa-trash me-1"></i>Clear All
+                            </button>
+                        </div>
+                        <div id="logged-items-list">
+                            <div class="text-center py-4 text-secondary">
+                                <i class="fa-solid fa-utensils fs-1 mb-3 opacity-25"></i>
+                                <p class="fw-medium mb-1">No meals logged today</p>
+                                <p class="small mb-0">Add meals from the Meals page or scan products</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-4 p-4 mb-4 border border-2">
+                    <h3 class="h5 fw-bold mb-4">
+                        <i class="fa-solid fa-calendar-week text-indigo me-2"></i>Weekly Overview
+                    </h3>
+                    <div id="weekly-chart" class="d-flex gap-2 "></div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-12 col-md-4">
+                        <button class="quick-log-btn quick-emerald w-100 bg-white rounded-3 p-3 border border-2 text-start d-flex align-items-center gap-3">
+                            <div class="quick-icon icon-emerald rounded-3 d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-plus fs-5"></i>
+                            </div>
+                            <div>
+                                <p class="fw-semibold mb-0">Log a Meal</p>
+                                <p class="small text-secondary mb-0">Add from recipes</p>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <button class="quick-log-btn quick-teal w-100 bg-white rounded-3 p-3 border border-2 text-start d-flex align-items-center gap-3">
+                            <div class="quick-icon icon-teal rounded-3 d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-barcode fs-5"></i>
+                            </div>
+                            <div>
+                                <p class="fw-semibold mb-0">Scan Product</p>
+                                <p class="small text-secondary mb-0">Use barcode scanner</p>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <button class="quick-log-btn quick-purple w-100 bg-white rounded-3 p-3 border border-2 text-start d-flex align-items-center gap-3">
+                            <div class="quick-icon icon-purple rounded-3 d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-pencil fs-5"></i>
+                            </div>
+                            <div>
+                                <p class="fw-semibold mb-0">Custom Entry</p>
+                                <p class="small text-secondary mb-0">Add custom food</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>   
+        </section>
+
+
+
+
+    
+
+    
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
